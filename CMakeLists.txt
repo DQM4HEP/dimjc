@@ -59,9 +59,9 @@ ADD_DEFINITIONS("-Wno-long-long -Wreturn-type")
 
 SET(
     SRC_FILES
-    src/DimJobControl.cc
-    src/DimJobInterface.cc
-    src/fileTailer.cxx
+    src/DimDQMJobControl.cc
+    src/DimDQMJobInterface.cc
+    src/fileTailer.cc
 )
 
 ADD_SHARED_LIBRARY( dimjc ${SRC_FILES} )
@@ -71,14 +71,18 @@ INSTALL(
     LIBRARY DESTINATION lib
 )
 
-ADD_EXECUTABLE( dimjc_daemon src/djc.cxx )
-TARGET_LINK_LIBRARIES( dimjc_daemon dimjc )
+ADD_EXECUTABLE( dimjcdqm_daemon src/djc.cxx )
+TARGET_LINK_LIBRARIES( dimjcdqm_daemon dimjc )
 
 INSTALL( 
-    TARGETS dimjc_daemon
+    TARGETS dimjcdqm_daemon
     RUNTIME DESTINATION bin
 )
 
+install(
+    PROGRAMS etc/dimjcdqmd
+    DESTINATION bin
+ )
 ###############################
 # display some variables and write them to cache
 DISPLAY_STD_VARIABLES()
